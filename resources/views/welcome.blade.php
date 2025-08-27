@@ -297,7 +297,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                @if (Route::has('login'))
+                {{-- @if (Route::has('login'))
                     <ul class="navbar-nav">
                         @auth
                             <li class="nav-item">
@@ -314,7 +314,8 @@
                             @endif
                         @endauth
                     </ul>
-                @endif
+                @endif --}}
+                <a href="{{ route('login') }}" class="btn btn-primary">Log in</a>
             </div>
         </div>
     </nav>

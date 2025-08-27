@@ -1,59 +1,19 @@
 <?php
 
 use Illuminate\Auth\Events\Login;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Authentication\LoginController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 // Route::method('alamat', function(){});
-Route::get('/', function() {
-    return view('welcome');
-});
-
-// slug = e.g: internet-connection
-// Route parameter required
-// Route::get('/category/{slug}', function($slug) {
-
-//     // Database query
-//     // DB::table('category')->where('slug', $slug)->get();
-//     return 'Ini adalah category: ' . $slug;
-    
-// });
-
-// Route parameter optional
-Route::get('/category/{aaaaa?}', function($aaaaa = null) {
-
-    // Database query
-    // DB::table('category')->where('slug', $slug)->get();
-
-    if (is_null($aaaaa)) {
-        return 'Ini adalah halaman utama category';
-    }
-
-    return 'Ini adalah category jenis: ' . $aaaaa;
-    
-});
+Route::get('/', [PageController::class, 'homepage'])->name('home');
+Route::get('/contact', [PageController::class, 'contactPage'])->name('contact');
 
 // Buatkan routing untuk halaman login // password reset
-Route::get('/dashboard', function() {
-
-    $pageTitle = '<script>alert("User List Dashboard");</script>';
-
-    $senaraiUsers = [
-        ['id' => 1, 'name' => 'John Doe', 'email' => 'john.doe@example.com', 'role' => 'Staff'],
-        ['id' => 2, 'name' => 'Jane Doe', 'email' => 'jane.doe@example.com', 'role' => 'Admin'],
-        ['id' => 3, 'name' => 'Bob Smith', 'email' => 'bob.smith@example.com', 'role' => 'Staff'],
-    ];
-
-    // Cara 1 attach data kepada template menggunakan kaedah with()
-    // return view('template-dashboard')->with('senaraiUsers', $senaraiUsers)->with('pageTitle', $pageTitle);
-
-    // Cara 2 attach data kepada template menggunakan kaedah array()
-    // return view('template-dashboard', ['senaraiUsers' => $senaraiUsers, 'pageTitle' => $pageTitle]);
-
-    // Cara 3 attach data kepada template menggunakan kaedah compact()
-    return view('template-dashboard', compact('senaraiUsers', 'pageTitle'));
-
-});
+Route::get('/dashboard', DashboardController::class);
 
 Route::get('/profile', function() {
     return view('template-profile');
@@ -97,6 +57,16 @@ Route::post('/import/data-investor', function() {
     // Handle import logic here
     return redirect('/import/data-investor')->with('success', 'Data investor berhasil diimport!');
 })->name('import.data-investor.store');
+
+
+// Route::method('alamat', function(){});
+// Route get login ini digunakan untuk paparkan borang login
+Route::get('/login', [LoginController::class, 'paparBorangLogin'])->name('login');
+// Route post login ini digunakan untuk mengambil data login dan proseskan authentication
+Route::post('/login', [LoginController::class, 'prosesDataLogin'])->name('login.proses');
+
+
+
 
 // Authentication routes
 Route::post('/logout', function() {
