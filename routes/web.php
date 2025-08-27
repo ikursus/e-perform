@@ -68,6 +68,11 @@ Route::post('/login', [LoginController::class, 'prosesDataLogin'])->name('login.
 
 
 
+// Test route for template-induk2
+Route::get('/template-test', function() {
+    return view('template-test');
+})->name('template.test');
+
 // Authentication routes
 Route::post('/logout', function() {
     Auth::logout();
