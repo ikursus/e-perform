@@ -100,7 +100,7 @@ Aplikasi ini mengandungi modul-modul berikut:
 4. Set konfigurasi database dalam `.env`
 5. Jalankan `php artisan key:generate`
 6. Jalankan `php artisan migrate`
-7. Jalankan `php artisan serve`
+7. Jalankan `php artisan serve` atau guna Laragon, pastikan Start All
 
 ## License
 
