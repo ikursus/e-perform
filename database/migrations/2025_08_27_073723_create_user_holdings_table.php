@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->string('fund_name');
             $table->string('fund_code');
+            $table->date('transaction_date');
+            $table->string('transaction_type');
             $table->decimal('total_investment', 18, 2);
             $table->decimal('nav', 18, 2);
             $table->decimal('current_value', 18, 2);

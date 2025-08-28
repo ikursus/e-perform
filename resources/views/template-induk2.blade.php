@@ -346,10 +346,11 @@
         <nav class="sidebar">
             <ul class="sidebar-menu">
                 <li><a href="{{ url('/dashboard') }}" class="{{ request()->is('dashboard*') ? 'active' : '' }}">Dashboard</a></li>
-                <li><a href="{{ url('/user') }}" class="{{ request()->is('user*') ? 'active' : '' }}">User</a></li>
+                <li><a href="{{ route('users.index') }}" class="{{ request()->is('users*') ? 'active' : '' }}">User</a></li>
                 <li><a href="{{ url('/productivity') }}" class="{{ request()->is('productivity*') ? 'active' : '' }}">Productivity</a></li>
                 <li><a href="{{ url('/utilization') }}" class="{{ request()->is('utilization*') ? 'active' : '' }}">Utilization</a></li>
                 <li><a href="{{ url('/service') }}" class="{{ request()->is('service*') ? 'active' : '' }}">Service</a></li>
+                <li><a href="{{ route('investor-holdings.index') }}" class="{{ request()->is('investor-holdings*') ? 'active' : '' }}">Investor Holdings</a></li>
                 <li><a href="{{ url('/import-data') }}" class="{{ request()->is('import-data*') ? 'active' : '' }}">Import Data</a></li>
                 <li><a href="{{ url('/setting') }}" class="{{ request()->is('setting*') ? 'active' : '' }}">Setting</a></li>
             </ul>

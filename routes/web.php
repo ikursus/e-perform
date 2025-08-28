@@ -5,8 +5,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Authentication\LogoutController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\InternetConnectionController;
+use App\Http\Controllers\CyberAttackController;
+use App\Http\Controllers\DigitalizationController;
+use App\Http\Controllers\UserHoldingController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 // Route::method('alamat', function(){});
@@ -24,11 +30,18 @@ Route::post('/login', [LoginController::class, 'prosesDataLogin'])->name('login.
 // Buatkan routing untuk halaman login // password reset
 Route::middleware('auth')->group(function() {
 
-    Route::get('/dashboard', DashboardController::class);
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
     Route::get('/profile', function() {
         return view('template-profile');
     });
+
+
+    
+
+
+
+
 
     // IT Performance routes
     Route::get('/it', function() {
@@ -69,8 +82,26 @@ Route::middleware('auth')->group(function() {
         return redirect('/import/data-investor')->with('success', 'Data investor berhasil diimport!');
     })->name('import.data-investor.store');
 
+    // User Management routes
+    Route::resource('users', UserController::class);
 
+    // Service Module routes
+    Route::get('/service', [ServiceController::class, 'index'])->name('service.index');
+    
+    // Internet Connections routes
+    Route::resource('internet-connections', InternetConnectionController::class);
+    
+    // Cyber Attacks routes
+    Route::resource('cyber-attacks', CyberAttackController::class);
+    
+    // Digitalizations routes
+    Route::resource('digitalizations', DigitalizationController::class);
 
+    // Investor Holdings routes
+    Route::resource('investor-holdings', UserHoldingController::class);
+    Route::get('/investor-holdings/import', [UserHoldingController::class, 'showImportForm'])->name('investor-holdings.import');
+    Route::post('/investor-holdings/import', [UserHoldingController::class, 'import'])->name('investor-holdings.import.process');
+    Route::get('/investor-holdings/download-template', [UserHoldingController::class, 'downloadTemplate'])->name('investor-holdings.download-template');
 
     // Test route for template-induk2
     Route::get('/template-test', function() {
