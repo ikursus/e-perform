@@ -28,20 +28,18 @@ class LoginController extends Controller
             'remember' => ['nullable', 'sometimes']
         ]);
 
-        return $credentials;
+        // Attempt to authenticate the user
+        if (auth()->attempt($credentials)) {
+            // Regenerate the session to prevent fixation attacks
+            $request->session()->regenerate();
 
-        // // Attempt to authenticate the user
-        // if (auth()->attempt($credentials)) {
-        //     // Regenerate the session to prevent fixation attacks
-        //     $request->session()->regenerate();
+            // Redirect to intended page or dashboard
+            return redirect()->intended('/dashboard');
+        }
 
-        //     // Redirect to intended page or dashboard
-        //     return redirect()->intended('/dashboard');
-        // }
-
-        // // If authentication fails, redirect back with an error message
-        // return back()->withErrors([
-        //     'email' => 'The provided credentials do not match our records.',
-        // ])->onlyInput('email');
+        // If authentication fails, redirect back with an error message
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
     }
 }

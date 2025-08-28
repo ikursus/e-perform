@@ -1,4 +1,4 @@
-@extends('template-induk')
+@extends('template-induk2')
 
 @section('title', 'Dashboard')
 @section('subtitle', 'Selamat datang di sistem E-Perform')
